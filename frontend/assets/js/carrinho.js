@@ -1,5 +1,6 @@
 // Carrinho - Gerenciamento do carrinho de compras
 let carrinho = [];
+let isAdmin = false; // Flag para identificar se o usuário é admin
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', function() {
@@ -7,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     configurarEventos();
     exibirCarrinho();
     carregarFormasPagamento();
+    verificarTipoUsuario(); // Verificar se é admin
     
     // Escutar mudanças no localStorage (para quando o carrinho for limpo em outras abas)
     window.addEventListener('storage', function(e) {
@@ -16,6 +18,57 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Verificar se o usuário é admin
+async function verificarTipoUsuario() {
+    try {
+        const response = await fetch('http://localhost:3001/auth/check-session', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            if (data.usuario && data.usuario.tipo === 'admin') {
+                isAdmin = true;
+                aplicarRestricaoAdmin();
+            }
+        }
+    } catch (error) {
+        console.log('Erro ao verificar tipo de usuário:', error);
+    }
+}
+
+// Aplicar restrições visuais para admin
+function aplicarRestricaoAdmin() {
+    // Adicionar atributo data-role ao container
+    const container = document.querySelector('.carrinho-container');
+    if (container) {
+        container.setAttribute('data-role', 'admin');
+    }
+    
+    // Mostrar mensagem de admin
+    const mensagemAdmin = document.getElementById('admin-warning');
+    if (mensagemAdmin) {
+        mensagemAdmin.style.display = 'block';
+    }
+    
+    // Desabilitar botão de finalizar compra
+    const btnFinalizar = document.getElementById('finalizar-compra');
+    if (btnFinalizar) {
+        btnFinalizar.disabled = true;
+        btnFinalizar.textContent = 'Compras desabilitadas';
+        btnFinalizar.title = 'Administradores não podem realizar compras';
+        btnFinalizar.style.backgroundColor = '#ccc';
+        btnFinalizar.style.cursor = 'not-allowed';
+    }
+    
+    // Desabilitar seleção de forma de pagamento
+    const formaPagamento = document.getElementById('forma-pagamento');
+    if (formaPagamento) {
+        formaPagamento.disabled = true;
+    }
+}
 
 // Carregar carrinho do localStorage
 function carregarCarrinho() {
@@ -177,6 +230,12 @@ async function carregarFormasPagamento() {
 
 // Finalizar compra
 async function finalizarCompra() {
+    // Verificar se é admin antes de permitir compra
+    if (isAdmin) {
+        mostrarMensagem('Administradores não podem realizar compras. Use uma conta de cliente.', 'erro');
+        return;
+    }
+
     if (carrinho.length === 0) {
         mostrarMensagem('Seu carrinho está vazio!', 'erro');
         return;

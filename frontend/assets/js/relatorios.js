@@ -76,10 +76,10 @@
   if (crudSelect) {
     crudSelect.onchange = function(){
       const v = crudSelect.value;
-      if (v === 'produtos') window.location.href = 'crud/produtos.html';
-      else if (v === 'pessoas') window.location.href = 'crud/pessoas.html';
-      else if (v === 'cargos') window.location.href = 'crud/cargos.html';
-      else if (v === 'pedidos') window.location.href = 'crud/pedidos.html';
+      if (v === 'produtos') window.location.href = 'crud/produtos/produtos.html';
+      else if (v === 'pessoas') window.location.href = 'crud/pessoas/pessoas.html';
+      else if (v === 'cargos') window.location.href = 'crud/cargos/cargos.html';
+      else if (v === 'pedidos') window.location.href = 'crud/pedidos/pedidos.html';
       else if (v === 'relatorios') {/* já está aqui */}
     };
   }

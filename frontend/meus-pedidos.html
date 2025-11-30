@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meus Pedidos - Loja Snoopy</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .meus-pedidos-container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+    
+    .meus-pedidos-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    
+    .meus-pedidos-header h2 {
+      color: #8e4f8e;
+      margin: 0;
+    }
+    
+    .voltar-loja {
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+    
+    .voltar-loja:hover {
+      background: linear-gradient(135deg, #ff1493, #dc143c);
+    }
+    
+    .pedidos-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .pedido-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      border-left: 4px solid #ff69b4;
+    }
+    
+    .pedido-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .pedido-numero {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #8e4f8e;
+    }
+    
+    .pedido-data {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .pedido-status {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    
+    .status-pago {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .status-pendente {
+      background: #fff3cd;
+      color: #856404;
+    }
+    
+    .pedido-produtos {
+      margin: 15px 0;
+    }
+    
+    .pedido-produtos h4 {
+      margin: 0 0 10px 0;
+      color: #333;
+      font-size: 0.95rem;
+    }
+    
+    .produto-item-pedido {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed #eee;
+      font-size: 0.9rem;
+    }
+    
+    .produto-item-pedido:last-child {
+      border-bottom: none;
+    }
+    
+    .pedido-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 2px solid #ff69b4;
+    }
+    
+    .pedido-total {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #ff1493;
+    }
+    
+    .pedido-forma-pagamento {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .sem-pedidos {
+      text-align: center;
+      padding: 60px 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .sem-pedidos h3 {
+      color: #8e4f8e;
+      margin-bottom: 15px;
+    }
+    
+    .sem-pedidos p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+    
+    .btn-ir-loja {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      color: white;
+      text-decoration: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+    
+    .erro {
+      text-align: center;
+      padding: 40px;
+      color: #dc3545;
+      background: #f8d7da;
+      border-radius: 8px;
+    }
+
+    @media print {
+      header, footer, .voltar-loja { display: none; }
+      .pedido-card { box-shadow: none; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Loja de Pelúcias Snoopy</h1>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="carrinho.html">Carrinho</a>
+    </nav>
+  </header>
+  
+  <main class="meus-pedidos-container">
+    <div class="meus-pedidos-header">
+      <h2>📦 Meus Pedidos</h2>
+      <a href="index.html" class="voltar-loja">← Continuar Comprando</a>
+    </div>
+    
+    <div id="loading" class="loading">
+      Carregando seus pedidos...
+    </div>
+    
+    <div id="erro" class="erro" style="display: none;">
+      Erro ao carregar pedidos. Tente novamente mais tarde.
+    </div>
+    
+    <div id="sem-pedidos" class="sem-pedidos" style="display: none;">
+      <h3>Você ainda não fez nenhum pedido</h3>
+      <p>Explore nossa loja e encontre pelúcias incríveis do Snoopy!</p>
+      <a href="index.html" class="btn-ir-loja">Ver Produtos</a>
+    </div>
+    
+    <div id="pedidos-lista" class="pedidos-lista" style="display: none;">
+      <!-- Pedidos serão carregados aqui via JS -->
+    </div>
+  </main>
+  
+  <footer>
+    <p>&copy; 2025 Loja Snoopy - Feito com ❤️ para os fãs do Snoopy</p>
+  </footer>
+  
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/meus-pedidos.js"></script>
+</body>
+</html>

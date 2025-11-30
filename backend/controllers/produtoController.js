@@ -2,7 +2,7 @@ const { pool } = require('../db');
 
 const SQL_IMAGEM_URL = `
   CASE 
-    WHEN imagem_binaria IS NOT NULL THEN '/admin-api/produtos/' || id::text || '/imagem'
+    WHEN imagem_binaria IS NOT NULL THEN '/produtos/' || id::text || '/imagem'
     ELSE NULL 
   END as imagem`;
 

@@ -43,7 +43,7 @@ async function fetchAuth(url, options = {}) {
     
     if (response.status === 401) {
         alert('Sessão expirada. Faça login novamente.');
-        window.location.href = '../login.html';
+        window.location.href = '../../login.html';
         return null;
     }
     
@@ -59,7 +59,7 @@ function verificarPermissaoAdmin() {
     const tipo = getCookie('userType') || localStorage.getItem('tipo');
     if (!isLoggedIn || tipo !== 'admin') {
         alert('Sessão expirada ou sem permissão. Redirecionando para login...');
-        window.location.href = '../login.html';
+        window.location.href = '../../login.html';
         return false;
     }
     return true;
@@ -74,7 +74,7 @@ function ensureAdmin() {
     const tipo = getCookie('userType') || localStorage.getItem('tipo');
     if (!isLoggedIn || tipo !== 'admin') {
         alert('Acesso restrito. Faça login como administrador.');
-        window.location.href = '../login.html';
+        window.location.href = '../../login.html';
         return false;
     }
     return true;
@@ -101,19 +101,19 @@ function setupCrudSelector(currentCrud) {
         
         switch (selectedValue) {
             case 'produtos':
-                window.location.href = 'produtos.html';
+                window.location.href = '../produtos/produtos.html';
                 break;
             case 'pessoas':
-                window.location.href = 'pessoas.html';
+                window.location.href = '../pessoas/pessoas.html';
                 break;
             case 'cargos':
-                window.location.href = 'cargos.html';
+                window.location.href = '../cargos/cargos.html';
                 break;
             case 'pedidos':
-                window.location.href = 'pedidos.html';
+                window.location.href = '../pedidos/pedidos.html';
                 break;
             case 'relatorios':
-                window.location.href = '../relatorios.html';
+                window.location.href = '../../relatorios.html';
                 break;
             default:
                 break;

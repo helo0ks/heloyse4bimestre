@@ -1,0 +1,297 @@
+/* =============================================
+   PEDIDOS.CSS - Estilos específicos do CRUD de Pedidos
+   ============================================= */
+
+/* Container principal da seção de pedidos */
+#secaoPedidos {
+    padding: 20px;
+}
+
+/* Container de pedidos */
+.pedidos-container {
+    padding: 20px;
+}
+
+/* Formulário de novo pedido */
+#formPedido {
+    max-width: 600px;
+}
+
+#formPedido label {
+    display: block;
+    margin-bottom: 0.3rem;
+    margin-top: 0.8rem;
+    font-weight: 600;
+    color: #8e4f8e;
+}
+
+#formPedido input,
+#formPedido select {
+    width: 100%;
+    padding: 0.7rem;
+    border: 2px solid #e0c0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+#formPedido input:focus,
+#formPedido select:focus {
+    outline: none;
+    border-color: #ff69b4;
+    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.3);
+}
+
+/* Lista de produtos no pedido */
+.produtos-selecionados {
+    background: #f8f4f8;
+    border: 2px solid #e0c0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    min-height: 100px;
+}
+
+.produtos-selecionados h4 {
+    margin-top: 0;
+    color: #8e4f8e;
+}
+
+/* Item de produto selecionado */
+.produto-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 10px 15px;
+    margin: 8px 0;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.produto-item .nome {
+    font-weight: 600;
+    color: #333;
+    flex: 2;
+}
+
+.produto-item .quantidade {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.produto-item .quantidade input {
+    width: 60px;
+    text-align: center;
+    padding: 5px;
+}
+
+.produto-item .preco {
+    font-weight: bold;
+    color: #8e4f8e;
+    min-width: 80px;
+    text-align: right;
+}
+
+.produto-item .remover {
+    background: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.produto-item .remover:hover {
+    background: #cc0000;
+}
+
+/* Total do pedido */
+.total-pedido {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #8e4f8e;
+    text-align: right;
+    padding: 15px;
+    background: linear-gradient(135deg, #fff8fc, #fce4ec);
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Formas de pagamento */
+.formas-pagamento {
+    margin: 15px 0;
+}
+
+.forma-pagamento-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: #f8f4f8;
+    border-radius: 6px;
+    margin: 8px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.forma-pagamento-item:hover {
+    background: #f0e4f0;
+    transform: translateX(5px);
+}
+
+.forma-pagamento-item input[type="radio"] {
+    width: auto;
+    accent-color: #ff69b4;
+}
+
+.forma-pagamento-item label {
+    cursor: pointer;
+    margin: 0;
+}
+
+/* Status do pedido com cores */
+.status-pendente {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.status-confirmado {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.status-cancelado {
+    background: linear-gradient(135deg, #f44336, #c62828);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.status-entregue {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+/* Tabela de pedidos */
+#tabelaPedidos {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Detalhes do pedido expandido */
+.pedido-detalhes {
+    display: none;
+    background: #fef8fe;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.pedido-detalhes.ativo {
+    display: block;
+}
+
+.pedido-detalhes ul {
+    list-style: none;
+    padding: 0;
+}
+
+.pedido-detalhes li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #e0c0e0;
+}
+
+.pedido-detalhes li:last-child {
+    border-bottom: none;
+}
+
+/* Botão de ver detalhes */
+.btn-ver-detalhes {
+    background: linear-gradient(135deg, #c167c1, #8e4f8e);
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 0.85em;
+    transition: all 0.3s ease;
+}
+
+.btn-ver-detalhes:hover {
+    background: linear-gradient(135deg, #8e4f8e, #6b3d6b);
+    transform: scale(1.05);
+}
+
+/* Linha de produto nos detalhes */
+.linha-produto {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.linha-produto .qtd {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.linha-produto .subtotal {
+    font-weight: 600;
+    color: #8e4f8e;
+}
+
+/* Seletor de cliente */
+#selectCliente {
+    width: 100%;
+}
+
+/* Seletor de produtos disponíveis */
+#selectProduto {
+    width: calc(100% - 100px);
+    display: inline-block;
+}
+
+#btnAdicionarProduto {
+    width: 90px;
+    margin-left: 10px;
+    padding: 0.7rem;
+}
+
+/* Container de adicionar produto */
+.add-produto-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    margin-bottom: 15px;
+}

@@ -1,0 +1,84 @@
+/* =============================================
+   CARGOS.CSS - Estilos específicos do CRUD de Cargos
+   ============================================= */
+
+/* Container principal da seção de cargos */
+#secaoCargos {
+    padding: 20px;
+}
+
+/* Formulário de cargos */
+#formCargo {
+    max-width: 400px;
+}
+
+#formCargo label {
+    display: block;
+    margin-bottom: 0.3rem;
+    margin-top: 0.8rem;
+    font-weight: 600;
+    color: #8e4f8e;
+}
+
+#formCargo input {
+    width: 100%;
+    padding: 0.7rem;
+    border: 2px solid #e0c0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+#formCargo input:focus {
+    outline: none;
+    border-color: #ff69b4;
+    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.3);
+}
+
+/* Campo de nome do cargo */
+#nomeCargo {
+    text-transform: capitalize;
+}
+
+/* Campo de descrição do cargo */
+#descricaoCargo {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Tabela de cargos */
+#tabelaCargos {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Célula de descrição com limite de texto */
+#tabelaCargos td:nth-child(2) {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#tabelaCargos td:nth-child(2):hover {
+    white-space: normal;
+    overflow: visible;
+}
+
+/* Badge para quantidade de funcionários no cargo */
+.funcionarios-count {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff69b4, #c167c1);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+/* Alerta de cargo em uso */
+.cargo-em-uso {
+    color: #ff9800;
+    font-style: italic;
+}

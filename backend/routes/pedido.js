@@ -3,6 +3,9 @@ const router = express.Router();
 const pedidoController = require('../controllers/pedidoController');
 const { verifyToken } = require('../middleware/authMiddleware');
 
+// Rota para o cliente ver seus próprios pedidos
+router.get('/meus-pedidos', verifyToken, pedidoController.meusPedidos);
+
 // Rotas auxiliares para dropdowns (antes das rotas com parâmetros)
 router.get('/auxiliar/clientes', verifyToken, pedidoController.listarClientes);
 router.get('/auxiliar/funcionarios', verifyToken, pedidoController.listarFuncionarios);

@@ -1,18 +1,43 @@
 // Variáveis globais
 let produtos = [];
 let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+let isAdminUser = false; // Flag para identificar se o usuário é admin
 
 // Inicialização quando a página carregar
 document.addEventListener('DOMContentLoaded', function() {
     carregarProdutos();
     configurarEventos();
     atualizarContadorCarrinho();
+    verificarTipoUsuarioIndex(); // Verificar se é admin
     
     // Atualiza contador do carrinho no authManager também
     if (window.authManager) {
         window.authManager.updateCartCounter();
     }
 });
+
+// Verificar se o usuário é admin
+async function verificarTipoUsuarioIndex() {
+    try {
+        const response = await fetch('http://localhost:3001/auth/check-session', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            if (data.usuario && data.usuario.tipo === 'admin') {
+                isAdminUser = true;
+                // Re-exibir produtos para atualizar os botões
+                if (produtos.length > 0) {
+                    exibirProdutos(produtos);
+                }
+            }
+        }
+    } catch (error) {
+        console.log('Erro ao verificar tipo de usuário:', error);
+    }
+}
 
 // Carregar produtos do backend
 async function carregarProdutos() {
@@ -61,6 +86,23 @@ function exibirProdutos(produtosParaExibir) {
     
     container.innerHTML = produtosParaExibir.map(produto => {
         const imagemUrl = resolverUrlImagemPublica(produto.imagem);
+        
+        // Determinar texto e estado do botão baseado no tipo de usuário
+        let botaoTexto, botaoDisabled, botaoClass;
+        if (isAdminUser) {
+            botaoTexto = 'Apenas Visualização';
+            botaoDisabled = true;
+            botaoClass = 'btn-admin-disabled';
+        } else if ((produto.quantidade || 0) <= 0) {
+            botaoTexto = 'Sem Estoque';
+            botaoDisabled = true;
+            botaoClass = '';
+        } else {
+            botaoTexto = getBotaoCarrinhoTexto();
+            botaoDisabled = false;
+            botaoClass = '';
+        }
+        
         return `
         <div class="produto-card" data-id="${produto.id}">
             <div class="produto-imagem">
@@ -75,9 +117,10 @@ function exibirProdutos(produtosParaExibir) {
                 </div>
                 <div class="produto-preco-container">
                     <span class="produto-preco">R$ ${parseFloat(produto.preco || 0).toFixed(2)}</span>
-                    <button class="btn-adicionar-carrinho" onclick="adicionarAoCarrinho(${produto.id})" 
-                            ${(produto.quantidade || 0) <= 0 ? 'disabled' : ''}>
-                        ${(produto.quantidade || 0) <= 0 ? 'Sem Estoque' : getBotaoCarrinhoTexto()}
+                    <button class="btn-adicionar-carrinho ${botaoClass}" onclick="adicionarAoCarrinho(${produto.id})" 
+                            ${botaoDisabled ? 'disabled' : ''}
+                            ${isAdminUser ? 'title="Administradores não podem realizar compras"' : ''}>
+                        ${botaoTexto}
                     </button>
                 </div>
             </div>
@@ -152,6 +195,12 @@ function filtrarProdutos() {
 
 // Adicionar produto ao carrinho
 function adicionarAoCarrinho(produtoId) {
+    // Verificar se é admin
+    if (isAdminUser) {
+        alert('Administradores não podem realizar compras. Por favor, use uma conta de cliente.');
+        return;
+    }
+
     // Verificar se o usuário está logado
     if (!window.authManager || !window.authManager.isLoggedIn()) {
         if (confirm('Você precisa fazer login para adicionar produtos ao carrinho.\n\nDeseja fazer login agora?')) {

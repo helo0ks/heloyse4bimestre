@@ -1,0 +1,116 @@
+/* =============================================
+   PESSOAS.CSS - Estilos específicos do CRUD de Pessoas
+   ============================================= */
+
+/* Container principal da seção de pessoas */
+#secaoPessoas {
+    padding: 20px;
+}
+
+/* Formulário de pessoas */
+#formPessoa {
+    max-width: 500px;
+}
+
+#formPessoa label {
+    display: block;
+    margin-bottom: 0.3rem;
+    margin-top: 0.8rem;
+    font-weight: 600;
+    color: #8e4f8e;
+}
+
+#formPessoa input,
+#formPessoa select {
+    width: 100%;
+    padding: 0.7rem;
+    border: 2px solid #e0c0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+#formPessoa input:focus,
+#formPessoa select:focus {
+    outline: none;
+    border-color: #ff69b4;
+    box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.3);
+}
+
+/* Campo de CPF com formatação especial */
+#cpf {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+}
+
+/* Mensagem de CPF não encontrado */
+#msgCpfNaoExiste {
+    display: none;
+    color: #c62828;
+    font-weight: bold;
+    padding: 8px;
+    background: #ffebee;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+/* Botão de buscar por CPF */
+#btnBuscarCpf {
+    margin-top: 5px;
+    background: linear-gradient(135deg, #c167c1, #8e4f8e);
+}
+
+#btnBuscarCpf:hover {
+    background: linear-gradient(135deg, #8e4f8e, #6b3d6b);
+}
+
+/* Tabela de pessoas */
+#tabelaPessoas {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Coluna de tipo com badge */
+#tabelaPessoas td:nth-child(4) {
+    text-transform: capitalize;
+}
+
+/* Badge para tipo de usuário */
+.tipo-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.tipo-admin {
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    color: white;
+}
+
+.tipo-cliente {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+}
+
+/* Campo de email */
+#email {
+    text-transform: lowercase;
+}
+
+/* Campo de senha */
+#senha {
+    letter-spacing: 2px;
+}
+
+/* Select de tipo de usuário */
+#tipo {
+    cursor: pointer;
+}
+
+#tipo option {
+    padding: 10px;
+}

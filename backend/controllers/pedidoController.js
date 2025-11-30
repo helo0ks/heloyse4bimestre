@@ -1,5 +1,71 @@
 const { pool } = require('../db');
 
+// Listar pedidos do cliente logado (meus pedidos)
+exports.meusPedidos = async (req, res) => {
+  try {
+    const clienteCpf = req.user.cpf;
+    
+    // Buscar pedidos do cliente
+    const pedidosResult = await pool.query(`
+      SELECT 
+        p.idPedido,
+        p.dataDoPedido,
+        p.ClientePessoaCpfPessoa,
+        cliente.nome as nomeCliente,
+        COALESCE(pag.valorTotalPagamento, 0) as valorTotal,
+        pag.dataPagamento,
+        pag.idPagamento
+      FROM Pedido p
+      LEFT JOIN Cliente c ON p.ClientePessoaCpfPessoa = c.PessoaCpfPessoa
+      LEFT JOIN pessoa cliente ON c.PessoaCpfPessoa = cliente.cpf
+      LEFT JOIN Pagamento pag ON p.idPedido = pag.PedidoIdPedido
+      WHERE p.ClientePessoaCpfPessoa = $1
+      ORDER BY p.dataDoPedido DESC, p.idPedido DESC
+    `, [clienteCpf]);
+
+    // Para cada pedido, buscar produtos e formas de pagamento
+    const pedidosCompletos = await Promise.all(pedidosResult.rows.map(async (pedido) => {
+      // Buscar produtos do pedido
+      const produtosResult = await pool.query(`
+        SELECT 
+          php.ProdutoIdProduto,
+          pr.nome as nomeProduto,
+          php.quantidade,
+          php.precoUnitario
+        FROM PedidoHasProduto php
+        JOIN produto pr ON php.ProdutoIdProduto = pr.id
+        WHERE php.PedidoIdPedido = $1
+      `, [pedido.idpedido]);
+
+      // Buscar formas de pagamento
+      const pagamentoResult = await pool.query(`
+        SELECT 
+          fp.nomeFormaPagamento,
+          phfp.valorPago
+        FROM PagamentoHasFormaPagamento phfp
+        JOIN FormaDePagamento fp ON phfp.FormaPagamentoIdFormaPagamento = fp.idFormaPagamento
+        JOIN Pagamento pag ON phfp.PagamentoIdPedido = pag.idPagamento
+        WHERE pag.PedidoIdPedido = $1
+      `, [pedido.idpedido]);
+
+      return {
+        ...pedido,
+        produtos: produtosResult.rows,
+        formasPagamento: pagamentoResult.rows
+      };
+    }));
+
+    res.json({ 
+      sucesso: true, 
+      pedidos: pedidosCompletos,
+      total: pedidosCompletos.length
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'Erro ao listar seus pedidos' });
+  }
+};
+
 // Listar todos os pedidos com informações completas
 exports.listarPedidos = async (req, res) => {
   try {
@@ -398,6 +464,14 @@ exports.listarFormasPagamento = async (req, res) => {
 
 // Finalizar pedido do carrinho (endpoint público para clientes)
 exports.finalizarPedidoCarrinho = async (req, res) => {
+  // Verificar se o usuário é admin - admin não pode fazer compras
+  if (req.user && req.user.tipo === 'admin') {
+    return res.status(403).json({ 
+      error: 'Ação proibida para usuários admin',
+      message: 'Administradores não podem realizar compras. Por favor, use uma conta de cliente.' 
+    });
+  }
+
   const client = await pool.connect();
   try {
     console.log('=== FINALIZANDO PEDIDO DO CARRINHO ===');

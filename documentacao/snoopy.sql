@@ -20,14 +20,6 @@
 -- NOTA: Todos os usuários têm senha "123456" - altere após o primeiro login!
 -- =============================================
 
-CREATE TABLE Endereco (
-    idEndereco SERIAL PRIMARY KEY,
-    logradouro VARCHAR(100),
-    numero VARCHAR(10),
-    referencia VARCHAR(45),
-    cep VARCHAR(9),
-    CidadeIdCidade INT
-);
 DROP TABLE IF EXISTS pessoa CASCADE;
 -- Script para criar a tabela pessoa (usuários) no PostgreSQL
 CREATE TABLE IF NOT EXISTS pessoa (
@@ -113,17 +105,7 @@ CREATE TABLE PagamentoHasFormaPagamento (
 -- =====================
 
 -- Endereco (10 registros)
-INSERT INTO Endereco (logradouro, numero, referencia, cep, CidadeIdCidade) VALUES
-('Rua A', '100', 'Perto da escola', '12345-000', 1),
-('Rua B', '200', 'Mercado próximo', '12345-001', 1),
-('Rua C', '300', 'Igreja perto', '12345-002', 2),
-('Rua D', '400', 'Farmácia ao lado', '12345-003', 2),
-('Rua E', '500', 'Shopping', '12345-004', 3),
-('Rua F', '600', 'Padaria', '12345-005', 3),
-('Rua G', '700', 'Praça', '12345-006', 4),
-('Rua H', '800', 'Posto de gasolina', '12345-007', 4),
-('Rua I', '900', 'Banco', '12345-008', 5),
-('Rua J', '1000', 'Restaurante', '12345-009', 5);
+
 
 -- Pessoa (10 registros)
 -- NOTA: A senha para todos os usuários é "123456"

@@ -155,6 +155,7 @@ class AuthManager {
             <span class="user-welcome">Olá, ${userInfo.name}!</span>
             <a href="index.html">Início</a>
             ${isAdmin ? `<a href="produtos.html" class="admin-link">Painel Admin</a>` : ''}
+            <a href="meus-pedidos.html">Meus Pedidos</a>
             <a href="carrinho.html" id="nav-carrinho">Carrinho</a>
             <a href="#" id="logout-btn" class="logout-btn">Sair</a>
         `;
