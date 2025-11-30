@@ -7,11 +7,30 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/crud.css">
     <style>
+        body {
+            background: url('img/snoopy-bg.png') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255,255,255,0.25);
+            z-index: -1;
+            pointer-events: none;
+        }
         .admin-panel {
-            max-width: 800px;
+            max-width: 900px;
             margin: 50px auto;
             padding: 40px;
             text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
         .admin-panel h1 {
             color: #8e4f8e;
@@ -74,6 +93,10 @@
             <a href="crud/cargos/cargos.html" class="crud-link">
                 <span class="icon">💼</span>
                 Gerenciar Cargos
+            </a>
+            <a href="crud/funcionarios/funcionarios.html" class="crud-link">
+                <span class="icon">👔</span>
+                Gerenciar Funcionários
             </a>
             <a href="crud/pedidos/pedidos.html" class="crud-link">
                 <span class="icon">🛒</span>

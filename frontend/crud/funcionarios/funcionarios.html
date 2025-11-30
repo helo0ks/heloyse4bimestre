@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Funcionários - Loja Snoopy</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="funcionarios.css">
+</head>
+<body>
+    <div id="main-content">
+        <!-- Seletor de CRUD -->
+        <div class="crud-selector">
+            <div class="crud-controls">
+                <label for="crudSelect">Selecionar CRUD:</label>
+                <select id="crudSelect" class="crud-select">
+                    <option value="produtos">Gerenciar Produtos</option>
+                    <option value="pessoas">Gerenciar Pessoas</option>
+                    <option value="cargos">Gerenciar Cargos</option>
+                    <option value="funcionarios" selected>Gerenciar Funcionários</option>
+                    <option value="pedidos">Gerenciar Pedidos</option>
+                    <option value="relatorios">Gerar Relatórios</option>
+                </select>
+            </div>
+            <div class="crud-navigation">
+                <a href="../../index.html" class="btn-voltar-menu">← Voltar ao Menu</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container de mensagens -->
+    <div id="messageContainer" class="message-container"></div>
+
+    <!-- Seção de Funcionários -->
+    <div id="secaoFuncionarios">
+        <h1 class="crud-title">Gerenciar Funcionários</h1>
+        
+        <form id="formFuncionario" autocomplete="off">
+            <div class="form-group">
+                <label for="cpfFuncionario">CPF do Funcionário:</label>
+                <div class="input-with-button">
+                    <select id="cpfFuncionario" name="cpfFuncionario" required>
+                        <option value="">Selecione uma pessoa...</option>
+                    </select>
+                    <button type="button" id="btnBuscarCpf">Buscar</button>
+                </div>
+                <small id="cpfInfo" class="info-text"></small>
+            </div>
+
+            <div class="form-group">
+                <label for="salario">Salário (R$):</label>
+                <input type="number" id="salario" name="salario" step="0.01" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="porcentagemComissao">Porcentagem de Comissão (%):</label>
+                <input type="number" id="porcentagemComissao" name="porcentagemComissao" step="0.01" min="0" max="100" value="0">
+            </div>
+
+            <div class="form-group">
+                <label for="idCargo">Cargo:</label>
+                <select id="idCargo" name="idCargo" required>
+                    <option value="">Selecione um cargo...</option>
+                </select>
+            </div>
+
+            <span id="msgCpfNaoExiste" style="display:none;color:#c62828;font-weight:bold;">Funcionário não encontrado</span>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Cadastrar/Atualizar Funcionário</button>
+                <button type="button" id="btnLimpar" class="btn-secondary">Limpar Formulário</button>
+            </div>
+        </form>
+
+        <h2>Funcionários Cadastrados</h2>
+        <table id="tabelaFuncionarios" border="1">
+            <thead>
+                <tr>
+                    <th>CPF</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Salário</th>
+                    <th>Comissão (%)</th>
+                    <th>Cargo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Funcionários serão inseridos aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../../assets/js/auth.js"></script>
+    <script src="utils.js"></script>
+    <script src="funcionarios.js"></script>
+</body>
+</html>

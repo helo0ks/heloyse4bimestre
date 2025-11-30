@@ -131,6 +131,19 @@ exports.deletarCargo = async (req, res) => {
       return res.status(404).json({ error: 'Cargo não encontrada' });
     }
 
+    // Verificar se há funcionários vinculados a este cargo
+    const funcionariosVinculados = await pool.query(
+      'SELECT COUNT(*) as total FROM Funcionario WHERE CargosIdCargo = $1',
+      [id]
+    );
+
+    if (parseInt(funcionariosVinculados.rows[0].total) > 0) {
+      return res.status(409).json({ 
+        error: 'Não é possível deletar este cargo pois há funcionários vinculados a ele',
+        funcionariosVinculados: parseInt(funcionariosVinculados.rows[0].total)
+      });
+    }
+
     // Deleta a cargo (as constraints CASCADE cuidarão das dependências)
     await pool.query(
       'DELETE FROM cargo WHERE idCargo = $1',

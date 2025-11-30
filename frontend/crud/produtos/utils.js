@@ -109,6 +109,9 @@ function setupCrudSelector(currentCrud) {
             case 'cargos':
                 window.location.href = '../cargos/cargos.html';
                 break;
+            case 'funcionarios':
+                window.location.href = '../funcionarios/funcionarios.html';
+                break;
             case 'pedidos':
                 window.location.href = '../pedidos/pedidos.html';
                 break;

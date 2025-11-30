@@ -86,7 +86,7 @@ function ensureAdmin() {
 
 /**
  * Configura o seletor de CRUD para navegação entre páginas
- * @param {string} currentCrud - Nome do CRUD atual (produtos, pessoas, cargos, pedidos, relatorios)
+ * @param {string} currentCrud - Nome do CRUD atual (produtos, pessoas, cargos, funcionarios, pedidos, relatorios)
  */
 function setupCrudSelector(currentCrud) {
     const crudSelect = document.getElementById('crudSelect');

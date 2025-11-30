@@ -79,6 +79,7 @@
       if (v === 'produtos') window.location.href = 'crud/produtos/produtos.html';
       else if (v === 'pessoas') window.location.href = 'crud/pessoas/pessoas.html';
       else if (v === 'cargos') window.location.href = 'crud/cargos/cargos.html';
+      else if (v === 'funcionarios') window.location.href = 'crud/funcionarios/funcionarios.html';
       else if (v === 'pedidos') window.location.href = 'crud/pedidos/pedidos.html';
       else if (v === 'relatorios') {/* já está aqui */}
     };
