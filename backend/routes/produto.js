@@ -14,7 +14,11 @@ router.get('/publicos', produtoController.listarProdutosPublicos);
 // POST com upload opcional via campo 'imagemArquivo'
 router.post('/', verifyToken, isAdmin, upload.single('imagemArquivo'), produtoController.cadastrarProduto);
 router.get('/', verifyToken, isAdmin, produtoController.listarProdutos);
-router.get('/:id/imagem', produtoController.buscarImagemProduto); // IMPORTANTE: Este DEVE estar ANTES de /:id
+
+// Rotas de imagem (imagem principal - compatível com legado)
+router.get('/:id/imagem', produtoController.buscarImagemProduto);
+
+// Rotas CRUD básicas
 router.get('/:id', verifyToken, isAdmin, produtoController.buscarProdutoPorId);
 // PUT com upload opcional via campo 'imagemArquivo'
 router.put('/:id', verifyToken, isAdmin, upload.single('imagemArquivo'), produtoController.editarProduto);

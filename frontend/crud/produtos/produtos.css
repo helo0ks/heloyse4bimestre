@@ -94,11 +94,12 @@
 }
 
 #tabelaProdutos img {
-    border-radius: 4px;
+    border-radius: 8px;
     object-fit: cover;
-    border: 1px solid #eee;
-    max-width: 60px;
-    max-height: 60px;
+    border: 2px solid #f0c0f0;
+    width: 80px;
+    height: 80px;
+    display: block;
 }
 
 /* Botão de buscar por ID */

@@ -38,7 +38,7 @@ async function listarProdutos() {
             <td>${produto.nome}</td>
             <td>${produto.descricao || ''}</td>
             <td>${formatarMoeda(produto.preco)}</td>
-            <td>${produto.imagem ? `<img src="${API_BASE_URL}${produto.imagem}?t=${Date.now()}" alt="img" width="50" onerror="this.style.display='none'">` : '<span class="sem-imagem">Sem imagem</span>'}</td>
+            <td>${produto.imagem ? `<img src="${API_BASE_URL}${produto.imagem}?t=${Date.now()}" alt="img" onerror="this.style.display='none'">` : '<span class="sem-imagem">Sem imagem</span>'}</td>
             <td>${produto.estoque}</td>
             <td>
                 <button onclick="editarProduto(${produto.id})">Editar</button>
