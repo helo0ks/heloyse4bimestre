@@ -13,8 +13,9 @@
       <div class="input-box">
         <input id="email" type="email" placeholder="Email" required />
       </div>
-      <div class="input-box">
+      <div class="input-box password-box">
         <input id="senha" type="password" placeholder="Senha" required />
+        <span class="toggle-password" onclick="togglePassword('senha', this)">👁️</span>
       </div>
       <div class="forgot-link">
         <a href="#" id="esqueceu-senha">Esqueceu a senha?</a>
@@ -29,6 +30,18 @@
   <script src="assets/js/auth.js"></script>
   <script src="login.js"></script>
   <script src="assets/js/recuperarSenha.js"></script>
+  <script>
+    function togglePassword(inputId, icon) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        icon.textContent = '👁️';
+      }
+    }
+  </script>
   <script>
     // Redireciona usuários já logados
     document.addEventListener('DOMContentLoaded', function() {
